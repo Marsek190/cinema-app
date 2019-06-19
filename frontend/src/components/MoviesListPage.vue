@@ -46,7 +46,7 @@
       <span class="filter-tag m-auto space_gray" @click="addFilter('year')" title="">Год премьеры</span><p class="mb-2"> {{ movie.year }} г.</p>
       <span class="space_gray">Жанр</span>
       <div class="mt-1">
-        <tag v-for="tag in movie.tags" :tag="tag" :key="tag.id" :title="'выбрать тэг'" @click.prevent="addTag(tag.title)"></tag>
+        <tag v-for="tag in movie.tags" :tag="tag" :key="tag.id" :title="'выбрать тэг'" @select_tag="addTag(tag.title)"></tag>
       </div>
       <hr>
       <button @click="open(movie.id)" class="btn btn-warning mb-2">Редактировать</button>
@@ -135,6 +135,7 @@ export default {
         this.tags.push(title);
         this.getAllMovies();
       }
+      //console.log(this.tags);
     },
     removeTag(title) {
       let pos = this.tags.indexOf(title);
