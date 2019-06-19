@@ -12,7 +12,7 @@
                 <small class="mt-2 d-block">Год премьеры:</small>
                 <input type="text" class="search_suggest_form_q" v-model="movie.year">
                 <small class="mt-2 d-block">Теги:</small>
-                <div class="mt-5">
+                <div class="mt-4">
                     <tag v-for="(tag, i) in movie.tags" :tag="tag" :key="tag.id" :title="'удалить тэг'" @select_tag="deleteTag($event, i)"></tag>
                     <new-tag @add_tag="addTag($event)"></new-tag>
                     <!--<span class="add_tag" title="новый тэг" @click="addTag"><i class="fa fa-plus"></i></span>-->

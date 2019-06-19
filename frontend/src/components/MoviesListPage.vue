@@ -12,14 +12,14 @@
         <small v-if="inputErrors.year" id="yearErrors" class="text-danger">
           {{ inputErrors.year }}
         </small>
-        <input type="text" class="form-control mb-2 mt-2" :class="{ 'error-field': inputErrors.tags }"
+        <input type="text" class="form-control mt-2" :class="{ 'error-field': inputErrors.tags }"
           name="year" v-validate="'required|numeric|length:4'" placeholder="Год" v-model.number="movie.year">
         <small v-if="inputErrors.tags" id="tagsErrors" class="text-danger" style="display: block">
           {{ inputErrors.tags }}
         </small>
         <!--<input type="text" class="form-control mb-2 mt-2" :class="{ 'error-field': errors.first('tag') }"
           name="tag" v-validate="'required|max:255'" placeholder="Теги через ," v-model="movie.tags">-->
-        <div class="mt-1">
+        <div class="mb-2 mt-0">
           <tag v-for="(title, i) in movie.tags" :tag="{title, id: i}" :key="i"
             @select_tag="deleteTitle(i)" :title="'удалить тэг'"></tag>
           <new-tag @add_tag="addTitle($event)"></new-tag>
@@ -45,7 +45,7 @@
       <span class="filter-tag m-auto space_gray" @click="addFilter('title')" title="">Название</span><h3> {{ movie.title }} </h3>
       <span class="filter-tag m-auto space_gray" @click="addFilter('year')" title="">Год премьеры</span><p class="mb-2"> {{ movie.year }} г.</p>
       <span class="space_gray">Жанр</span>
-      <div class="mt-2">
+      <div class="mt-1">
         <tag v-for="tag in movie.tags" :tag="tag" :key="tag.id" :title="'выбрать тэг'" @click.prevent="addTag(tag.title)"></tag>
       </div>
       <hr>

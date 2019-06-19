@@ -1,5 +1,5 @@
 <template>
-    <div class="tag_frame">
+    <div class="tag_frame mt-2">
         <input type="text" placeholder="...ещё тэг" v-model="title">
         <span class="add_tag" title="новый тэг" @click="addTagEvent"><i class="fa fa-plus"></i></span>
     </div>
@@ -28,7 +28,7 @@
         min-width: 30px;
         background-color: darkorange;
         border-radius: 3px;
-        display: inline;
+        display: inline-table;
         padding: 5px 5px;
         margin-left: 7px;
     }

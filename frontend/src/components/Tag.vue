@@ -1,5 +1,5 @@
 <template>
-    <div class="tag_frame" :title="title" @click.prevent="$emit('select_tag', tag.id)">
+    <div class="tag_frame mt-2" :title="title" @click.prevent="$emit('select_tag', tag.id)">
         <span>{{ tag.title }}</span>
     </div>
 </template>
@@ -25,7 +25,7 @@
         min-width: 60px;
         background-color: grey;
         border-radius: 3px;
-        display: inline;
+        display: inline-table;
         padding: 5px 5px;
         margin-left: 7px;
         cursor: pointer;
