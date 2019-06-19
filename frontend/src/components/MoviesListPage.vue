@@ -33,7 +33,7 @@
     <div v-if="Object.keys(filter).length > 0" class="d-inline-block mt-2">
       <span class="space_gray">Выбранные вами фильтры:</span>
       <FilterLabel v-for="(key, i) in Object.keys(filter)"
-        :title="key" :key="i" @remove="removeFilter($event)"></FilterLabel>
+        :title="filter[key].label" :key="i" @remove="removeFilter($event)"></FilterLabel>
     </div>
     <br>
     <div v-if="tags.length > 0" class="d-inline-block mt-2">
@@ -120,14 +120,18 @@ export default {
     sort(target) {
       console.log('sort by field: ' + target);
     },
-    addFilter(target) {
+    addFilter(target, name) {
       if (target in this.filter) {
-            this.filter[target] = (this.filter[target] === 'DESC') ? 'ASC' : 'DESC';
+        //this.filter[target] = (this.filter[target] === 'DESC') ? 'ASC' : 'DESC';
+        this.filter[target].order = (this.filter[target].order === 'DESC') ? 'ASC' : 'DESC';
       } else {
-          this.filter = {};
-          this.filter[target] = 'ASC';
+        this.filter = {};
+        this.filter[target] = {
+          label: name,
+          order: 'ASC'
+        };
       }
-      console.log(this.filter);
+      //console.log(this.filter);
       this.getAllMovies();
     },
     addTag(title) {
@@ -160,8 +164,14 @@ export default {
       this.inputErrors = {};
     },
     query() {
+      // let query = '';
+      // for (const [key, value] of Object.entries(this.filter)) {
+      //   query += `&${key}=${value}`;
+      // }
       let query = '';
-      for (const [key, value] of Object.entries(this.filter)) {
+      if (Object.keys(this.filter).length > 0) {
+        let key = Object.keys(this.filter)[0];
+        let value = this.filter[key].order;
         query += `&${key}=${value}`;
       }
       return query;
