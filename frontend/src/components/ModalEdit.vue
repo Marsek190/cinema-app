@@ -33,9 +33,10 @@
         },
         props: {
             /**
-             * @property title,
-             * @property year,
-             * @property tags
+             * @property number id
+             * @property string title,
+             * @property number year,
+             * @property Array tags
              */
             movie: {
                 type: Object,
@@ -70,6 +71,11 @@
                 axios.post('/tag/delete/' + this.movie.id + '/' + id)
                   .then(() => {
                     this.movie.tags.splice(pos, 1);
+                    if (this.movie.tags.length === 0) {
+                      this.$emit('delete_movie');
+                      this.$emit('close');
+                      toastr.info(`Фильм ${this.movie.title} был удален по причине отстутвия тэгов`);
+                    }
                   })
                   .catch(console.error);
             },

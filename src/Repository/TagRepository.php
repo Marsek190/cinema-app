@@ -75,7 +75,8 @@ class TagRepository extends ServiceEntityRepository
     public function delete($movieId, $tagId): void
     {
         $tag = $this->find($tagId);
-        $movie = $this->_em->getRepository(Movie::class)->find($movieId);
+        $movieRepo = $this->_em->getRepository(Movie::class);
+        $movie = $movieRepo->find($movieId);
         if (!$tag) {
             throw new \DomainException('Movie\'s tag with id = '.$tagId.' was not found.');
         }
@@ -87,6 +88,10 @@ class TagRepository extends ServiceEntityRepository
         try {
             $entityManager->persist($tag);
             $entityManager->flush();
+
+            if ($movie->getTags()->count() == 0) {
+                $movieRepo->deleteMovie($movie->getId());
+            }
 
         } catch (ORMException $e) {
             throw $e;

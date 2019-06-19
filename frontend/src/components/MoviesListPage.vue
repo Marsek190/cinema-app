@@ -51,7 +51,7 @@
       <hr>
       <button @click="open(movie.id)" class="btn btn-warning mb-2">Редактировать</button>
       <button @click="deleteMovie(pos, movie.id)" class="btn btn-danger">Удалить</button>
-      <modal-edit v-if="edit && edit_id === movie.id"
+      <modal-edit v-if="edit && edit_id === movie.id" @delete_movie="movies.splice(pos, 1)"
         :movie.sync="movie" @close="edit = false"></modal-edit>
     </div>
     <div v-show="download">
@@ -108,7 +108,9 @@ export default {
   methods: {
     addTitle(title) {
       if (!this.movie.tags.includes(title)) {
-        this.movie.tags.push(title);
+        this.movie.tags.push(title.toLowerCase());
+      } else {
+        toastr.warning('Вы уже добавляли тэг с таким названием к этому фильму');
       }
     },
     deleteTitle(pos) {
@@ -150,8 +152,8 @@ export default {
     clearForm() {
       this.movie = {
         title: "",
-        year: "",
-        tags: ""
+        year: null,
+        tags: []
       };
       this.inputErrors = {};
     },
@@ -181,10 +183,10 @@ export default {
             items } = data;
           this.movies = items;
           if (current_page_number > 0) {
-            this.totalPages = total_count / num_items_per_page;
+            this.totalPages = Math.ceil(total_count / num_items_per_page);
             this.perPage = num_items_per_page;
           }
-          //console.log(data);
+          console.log(data);
           //console.log(move);
         })
         .catch(console.warn)
@@ -219,7 +221,7 @@ export default {
   },
 
   created() {
-    console.log("run");
+    console.log('running...');
     this.searchByInitials = _.debounce(this.getAllMovies, 500);
     this.getAllMovies();
   }

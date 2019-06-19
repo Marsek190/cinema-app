@@ -5,6 +5,7 @@ import router from './router'
 import axios from 'axios';
 import VeeValidate, { Validator } from 'vee-validate';
 import ru from 'vee-validate/dist/locale/ru';
+import toastr from 'toastr';
 import "bootstrap/dist/css/bootstrap.css";
 
 Vue.use(VeeValidate)
@@ -15,6 +16,7 @@ Vue.config.productionTip = false
 const baseUrl = "http://localhost:8000"
 
 window.axios = axios
+window.toastr = toastr
 window.axios.defaults.baseURL = baseUrl
 
 new Vue({
