@@ -107,8 +107,9 @@ export default {
   },
   methods: {
     addTitle(title) {
+      title = title.toLowerCase();
       if (!this.movie.tags.includes(title)) {
-        this.movie.tags.push(title.toLowerCase());
+        this.movie.tags.push(title);
       } else {
         toastr.warning('Вы уже добавляли тэг с таким названием к этому фильму');
       }
